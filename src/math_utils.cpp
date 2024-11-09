@@ -1,4 +1,4 @@
-#include <../include/Math/math_utils.h>
+#include <math/math_utils.h>
 
 // Constructor
 Vector2D::Vector2D(float x, float y) : x(x), y(y) {}
