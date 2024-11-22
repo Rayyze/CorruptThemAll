@@ -59,6 +59,6 @@ int main(int argc, char *argv[])
         SDL_Delay(16); // Add a delay of 16 milliseconds for a controlled pace
     }
 
-    SDL_DestroyTexture(texture);
+    //SDL_DestroyTexture(texture);
     return 0;
 }
