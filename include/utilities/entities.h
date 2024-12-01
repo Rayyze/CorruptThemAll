@@ -3,21 +3,6 @@
 #include <SDL.h>
 
 class Entity {
-public:
-    virtual void update() = 0;
-    virtual ~Entity() = default;
-    
-    virtual bool getVisibility() = 0;
-    virtual void setVisibility(bool new_value) = 0;
-    virtual Vector2D getPosition() = 0;
-    virtual void setPosition(Vector2D new_value) = 0;
-    virtual Vector2D getSize() = 0;
-    virtual void setSize(Vector2D new_value) = 0;
-    virtual SDL_Texture *getTexture() = 0;
-    virtual void setTexture(SDL_Texture *new_value) = 0;
-};
-
-class Player : public Entity {
 private:
     Vector2D pos;
     Vector2D size;
@@ -25,12 +10,22 @@ private:
     SDL_Texture *texture;
 
 public:
-    bool getVisibility() override;  // Make sure it's declared with the correct return type
-    void setVisibility(bool new_value) override;
-    Vector2D getPosition() override;
-    void setPosition(Vector2D new_value) override;
-    Vector2D getSize() override;
-    void setSize(Vector2D new_value) override;
-    SDL_Texture* getTexture() override;
-    void setTexture(SDL_Texture* new_value) override;
+    virtual void update() = 0;
+    virtual ~Entity() = default;
+    
+    bool getVisibility();
+    void setVisibility(bool new_value);
+    Vector2D getPosition();
+    void setPosition(Vector2D new_value);
+    Vector2D getSize();
+    void setSize(Vector2D new_value);
+    SDL_Texture *getTexture();
+    void setTexture(SDL_Texture *new_value);
+};
+
+class Player : public Entity {
+private:
+
+public:
+
 };
