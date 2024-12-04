@@ -3,7 +3,7 @@
 #include <SDL.h>
 
 class Entity {
-private:
+protected:
     Vector2D pos;
     Vector2D size;
     bool visible = true;
@@ -24,8 +24,9 @@ public:
 };
 
 class Player : public Entity {
-private:
-
+protected:
+    int suspiciousness;
 public:
-
+    void update() override;
+    ~Player() override;
 };

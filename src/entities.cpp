@@ -31,3 +31,8 @@ SDL_Texture *Entity::getTexture() {
 void Entity::setTexture(SDL_Texture *new_value) {
     this->texture = new_value;
 }
+
+Player::~Player()
+{
+    SDL_DestroyTexture(this->texture);
+}

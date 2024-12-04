@@ -5,20 +5,19 @@
 #include <memory>
 #include <iostream>
 
-using EntityList = std::list<std::shared_ptr<Entity>>;
 
-render_engine::render_engine() : main_window(nullptr), renderer(nullptr)
+Render_engine::Render_engine() : main_window(nullptr), renderer(nullptr)
 {
 }
 
-render_engine::~render_engine() {
+Render_engine::~Render_engine() {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(main_window);
     IMG_Quit();
     SDL_Quit();
 }
 
-int render_engine::start(const char *window_name, int window_width, int window_height, Uint32 window_flag) {
+int Render_engine::start(const char *window_name, int window_width, int window_height, Uint32 window_flag) {
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
     {
         std::cerr << "SDL could not initialize! SDL_Error: " << SDL_GetError() << std::endl;
@@ -64,14 +63,14 @@ int render_engine::start(const char *window_name, int window_width, int window_h
     return true;
 }
 
-int render_engine::registerTexture(const char*texture_path) {
+SDL_Texture *Render_engine::registerTexture(const char*texture_path) {
     SDL_Texture *texture;
 
-    SDL_Surface *surface = IMG_Load(texture_path); //"../assets/player-idle-1.png"
+    SDL_Surface *surface = IMG_Load(texture_path);
     if (!surface)
     {
         std::cerr << "Unable to load image! IMG_Error: " << IMG_GetError() << std::endl;
-        return false;
+        return NULL;
     }
     else
     {
@@ -80,13 +79,15 @@ int render_engine::registerTexture(const char*texture_path) {
 
         if (!texture)
         {
-            return false;
+            return NULL;
         }
     }
+
+    return texture;
 }
 
 
-int render_engine::updateEntities(EntityList entities) {
+int Render_engine::updateEntities(EntityList entities) {
     for (const auto& entity : entities) {
         if (entity->getVisibility()) {
             Vector2D pos = entity->getPosition();

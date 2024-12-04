@@ -1,9 +1,12 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <utilities/entities.h>
+#include <engines/render_engine.h>
 #include <iostream>
 #include <list>
 #include <memory>
+
+using EntityList = std::list<std::shared_ptr<Entity>>;
 
 int main(int argc, char *argv[])
 {
@@ -16,8 +19,15 @@ int main(int argc, char *argv[])
     Uint64 last_cycle_time = SDL_GetTicks();
     Uint64 current_time = SDL_GetTicks();
     double delta_time;
+    EntityList entities;
+    Render_engine render_engine;
+    
+    render_engine.start("CorruptThemAll", 0, 0, 0); //0 for both height and width for autodetect and 0 for the flag (not used yet)
 
-    using EntityList = std::list<std::shared_ptr<Entity>>;
+    //register the player
+    auto player = std::make_shared<Player>(0);;
+    render_engine.registerTexture("../assets/player-idle-1.png");
+    entities.push_back(player);
 
     while (running)
     {
@@ -59,6 +69,5 @@ int main(int argc, char *argv[])
         SDL_Delay(16); // Add a delay of 16 milliseconds for a controlled pace
     }
 
-    //SDL_DestroyTexture(texture);
     return 0;
 }
